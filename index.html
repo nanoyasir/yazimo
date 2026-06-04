@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Yazi Mo | Amazon Ads API</title>
+</head>
+<body>
+    <h1>Welcome to AMZ Now </h1>
+    <p>This site serves as the registered endpoint for the Amazon Ads API.</p>
+    
+    <!-- Amazon Ads API OAuth Callback Handler -->
+    <script>
+        // Check if we are on the callback URL after user authorization
+        const urlParams = new URLSearchParams(window.location.search);
+        const authCode = urlParams.get('code');
+
+        if (authCode) {
+            console.log('Authorization code received:', authCode);
+            // In a real implementation, you'd securely send this code
+            // to a backend service to exchange for an access token.
+            // For now, you can display it to complete the sign-up flow.
+            document.body.innerHTML += `<p>Authorization successful. Code: ${authCode}</p>`;
+        }
+    </script>
+</body>
+</html>
