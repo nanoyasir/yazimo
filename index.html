@@ -2,26 +2,626 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Yazi Mo | Amazon Ads API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Amazon Ads agency specializing in scaling, management, and strategic insights. Maximize your ROI with data-driven Amazon PPC and DSP campaigns.">
+    <title>Apex AdFlow | Amazon Ads Agency</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a2a3f;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Color palette — Amazon orange + deep navy */
+        :root {
+            --primary: #FF9900;     /* Amazon orange */
+            --primary-dark: #e68a00;
+            --secondary: #232F3E;   /* Amazon navy */
+            --gray-light: #f8fafc;
+            --gray-border: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.96);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .logo span {
+            color: var(--primary);
+        }
+        .logo a {
+            text-decoration: none;
+            color: var(--secondary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary);
+            color: #1e2a3a;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,153,0,0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary-dark);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 100px;
+            background: linear-gradient(135deg, #fef9e6 0%, #ffffff 100%);
+        }
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-badge {
+            background: rgba(255,153,0,0.12);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+        }
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--secondary);
+            margin-bottom: 24px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 90%;
+            margin-bottom: 32px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .hero-image {
+            flex: 1;
+            background: linear-gradient(145deg, #232F3E10, #FF990010);
+            border-radius: 36px;
+            padding: 20px;
+            text-align: center;
+        }
+        .hero-image i {
+            font-size: 8rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        /* Section general */
+        .section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--secondary);
+        }
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 56px auto;
+            font-size: 1.1rem;
+        }
+
+        /* Services grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+        .service-card {
+            background: white;
+            border-radius: 28px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.25s, box-shadow 0.3s;
+            border: 1px solid var(--gray-border);
+            text-align: center;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+        .service-icon {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            color: var(--text-muted);
+        }
+
+        /* Insights / Blog posts */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid var(--gray-border);
+            transition: all 0.2s;
+        }
+        .post-card:hover {
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
+        }
+        .post-img {
+            background: var(--gray-light);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            background: linear-gradient(120deg, #f1f5f9, #fff);
+        }
+        .post-content {
+            padding: 24px;
+        }
+        .post-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .post-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .post-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .read-more {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contact & CTA */
+        .cta-section {
+            background: var(--secondary);
+            color: white;
+            border-radius: 48px;
+            padding: 56px 48px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 28px auto;
+            opacity: 0.85;
+        }
+        .contact-form {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .contact-form input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: none;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+        .contact-form button {
+            background: var(--primary);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .contact-form button:hover {
+            background: #ffad33;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 48px 0 32px;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-col p, .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        .social-icons i {
+            font-size: 1.3rem;
+            margin-right: 16px;
+            transition: color 0.2s;
+            color: #cbd5e1;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #1e293b;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 20px;
+                padding: 24px 0 16px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                max-width: 100%;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .section {
+                padding: 56px 0;
+            }
+            .cta-section {
+                padding: 40px 24px;
+            }
+            .contact-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to AMZ Now </h1>
-    <p>This site serves as the registered endpoint for the Amazon Ads API.</p>
-    
-    <!-- Amazon Ads API OAuth Callback Handler -->
-    <script>
-        // Check if we are on the callback URL after user authorization
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo"><a href="#">Apex<span>AdFlow</span></a></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" class="btn-outline" style="padding: 6px 20px;">Client Portal</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-chart-line"></i>  Amazon Ads Premier Partner</div>
+                <h1>Scale & optimize <br>Amazon Ads like never before</h1>
+                <p>Data-driven management for Sponsored Products, Brands, DSP & more. Increase ROAS, dominate market share, and unlock full potential.</p>
+                <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i>  Scale your brand</a>
+                <div class="hero-stats">
+                    <div class="stat-item"><h3>+187%</h3><span>Avg. ROAS increase</span></div>
+                    <div class="stat-item"><h3>2.3K+</h3><span>Active campaigns</span></div>
+                    <div class="stat-item"><h3>45+</h3><span>Amazon experts</span></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <i class="fab fa-amazon"></i>
+                <i class="fas fa-chalkboard-user" style="font-size: 4rem; display: block; margin-top: 20px;"></i>
+                <p style="margin-top: 24px; font-weight: 500;">Real-time bidding | Smart automation | Full-funnel strategy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Performance solutions <span style="color: #FF9900;">for Amazon sellers</span></h2>
+            <p class="section-sub">From emerging brands to enterprise, we manage every layer of Amazon advertising to maximize profitability.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-chart-simple"></i></div>
+                    <h3>Strategic Scaling</h3>
+                    <p>Leverage predictive analytics & AI to scale PPC spend profitably. We uncover hidden high-volume keywords and expand into new market segments.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Full Management</h3>
+                    <p>Hands-on daily optimization: bid adjustments, negative targeting, placement modifiers, and advanced portfolio strategies for Sponsored Ads & DSP.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Creative & Insights</h3>
+                    <p>Video ads, custom storefronts, and creative testing. Our proprietary dashboards reveal actionable audience insights and retail readiness.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3>Training & Advisory</h3>
+                    <p>Workshops, monthly deep-dives, and consulting to empower your internal teams with advanced Amazon Ads knowledge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights / Blog Posts Section -->
+    <section id="insights" class="section" style="background: var(--gray-light);">
+        <div class="container">
+            <h2 class="section-title">Latest insights on Amazon Ads</h2>
+            <p class="section-sub">Fresh strategies, market trends, and performance playbooks to dominate the digital shelf.</p>
+            <div class="insights-grid">
+                <!-- Post 1 -->
+                <div class="post-card">
+                    <div class="post-img"><i class="fas fa-chart-line fa-3x"></i></div>
+                    <div class="post-content">
+                        <div class="post-category"><i class="far fa-calendar-alt"></i>  March 12, 2026</div>
+                        <h3>New DSP features: contextual targeting expansion</h3>
+                        <p>Amazon's latest DSP update allows interest-based segments with retail signals. How to use it for 2.5x ROAS.</p>
+                        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Post 2 -->
+                <div class="post-card">
+                    <div class="post-img"><i class="fas fa-tachometer-alt fa-3x"></i></div>
+                    <div class="post-content">
+                        <div class="post-category"><i class="far fa-calendar-alt"></i>  February 28, 2026</div>
+                        <h3>How to scale from $50k to $500k/mo in Amazon PPC</h3>
+                        <p>Step-by-step framework: portfolio structure, budget pacing, and advanced dayparting that grew revenue 312%.</p>
+                        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Post 3 -->
+                <div class="post-card">
+                    <div class="post-img"><i class="fas fa-brain fa-3x"></i></div>
+                    <div class="post-content">
+                        <div class="post-category"><i class="far fa-calendar-alt"></i>  February 10, 2026</div>
+                        <h3>Automation rules + AI bidding: 2026 playbook</h3>
+                        <p>Leverage machine learning for dynamic bids while maintaining brand protection. Case study: ACOS dropped 28%.</p>
+                        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="#" class="btn-outline">View all insights <i class="fas fa-long-arrow-alt-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & CTA Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="cta-section">
+                <h2>Ready to accelerate Amazon sales?</h2>
+                <p>Get a free advertising audit + strategy roadmap from our senior Amazon Ads specialists.</p>
+                <form class="contact-form" id="demoForm" action="#" method="post">
+                    <input type="email" placeholder="Your work email" required id="contactEmail">
+                    <button type="submit" class="btn-primary" style="background: #FF9900; color: #232F3E;">Request proposal →</button>
+                </form>
+                <p style="margin-top: 24px; font-size: 0.8rem;"><i class="fas fa-lock"></i>  No spam, only data-driven insights.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ApexAdFlow</h4>
+                <p>Premium Amazon Ads agency helping brands scale profitably across Sponsored Ads, DSP, and retail media.</p>
+                <div class="social-icons" style="margin-top: 16px;">
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <p>PPC Management<br>DSP campaigns<br>Creative Production<br>Analytics & Reporting</p>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <p>Amazon Ads Blog<br>Case studies<br>Webinars<br>ROAS Calculator</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i class="fas fa-envelope"></i>  hello@apexadflow.com<br><i class="fas fa-phone-alt"></i>  +1 (888) 440-ADFLOW<br><i class="fas fa-map-marker-alt"></i>  Seattle | Austin | Berlin</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 ApexAdFlow — Amazon Ads Partner. All rights reserved. | <a href="#" style="color:#94a3b8;">Privacy Policy</a> | <a href="#" style="color:#94a3b8;">API Terms</a></p>
+            <p style="margin-top: 8px;">*This website is registered for Amazon Ads API usage and OAuth redirect purposes.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Simple contact form handling (demo / non-functional for API registration, just user feedback)
+    const contactForm = document.getElementById('demoForm');
+    if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('contactEmail');
+            if(emailInput.value.trim() !== '') {
+                alert(`Thank you! We'll reach out to ${emailInput.value} within 24h with a custom Amazon Ads audit.`);
+                emailInput.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    }
+
+    // OAuth callback detection for Amazon Ads API registration (static handler - for demonstration)
+    // This ensures that if this page is used as redirect_uri, it extracts the 'code' param.
+    (function checkOAuthCallback() {
         const urlParams = new URLSearchParams(window.location.search);
         const authCode = urlParams.get('code');
-
-        if (authCode) {
-            console.log('Authorization code received:', authCode);
-            // In a real implementation, you'd securely send this code
-            // to a backend service to exchange for an access token.
-            // For now, you can display it to complete the sign-up flow.
-            document.body.innerHTML += `<p>Authorization successful. Code: ${authCode}</p>`;
+        if(authCode && authCode.length > 5) {
+            console.log('Amazon Ads OAuth code captured:', authCode);
+            // Optional user-friendly message for developers
+            const toastMsg = document.createElement('div');
+            toastMsg.style.position = 'fixed';
+            toastMsg.style.bottom = '20px';
+            toastMsg.style.right = '20px';
+            toastMsg.style.backgroundColor = '#232F3E';
+            toastMsg.style.color = '#FF9900';
+            toastMsg.style.padding = '12px 24px';
+            toastMsg.style.borderRadius = '40px';
+            toastMsg.style.fontFamily = 'monospace';
+            toastMsg.style.fontSize = '0.85rem';
+            toastMsg.style.zIndex = '999';
+            toastMsg.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            toastMsg.innerHTML = `✅ OAuth code received. Amazon Ads API flow ready.`;
+            document.body.appendChild(toastMsg);
+            setTimeout(() => toastMsg.remove(), 5000);
         }
-    </script>
+    })();
+</script>
 </body>
 </html>
